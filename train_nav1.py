@@ -25,14 +25,15 @@ FLAGS = flags.FLAGS
 
 # NAVIGATION1: BARRIER SIZES
 flags.DEFINE_integer("timesteps", 256000, "# timesteps to train")
-flags.DEFINE_string("experiment_dir", "output/updated_gridworld_continuous2", "Name of experiment")
-flags.DEFINE_string("experiment_name", "B1R_B1L2", "Name of experiment")
+flags.DEFINE_string("experiment_dir", "output/updated_gridworld_continuous_me", "Name of experiment")
+flags.DEFINE_string("experiment_name", "B1R_B1L1", "Name of experiment")
 flags.DEFINE_boolean("is_save", True, "Saves and logs experiment data if True")
 flags.DEFINE_integer("eval_save_period", 1, "how often we save state for eval")  # fine
 flags.DEFINE_integer("num_envs", 1, "number of envs")
 flags.DEFINE_integer("seed", 101, "random seed")
 flags.DEFINE_integer("bs", 5, "barrier size")
 flags.DEFINE_string("expt_type", "ours", "experiment type")
+# flags.DEFINE_string("env", "nav1", "environment type")
 
 from output.updated_gridworld_continuous.policies import *
 
