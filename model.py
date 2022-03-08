@@ -485,7 +485,7 @@ class PPO2General(ActorCriticRLModel):
         with SetVerbosity(self.verbose), TensorboardWriter(self.graph, self.tensorboard_log, tb_log_name, new_tb_log) \
                 as writer:
             self._setup_learn()
-
+            # 初始化ppo2算法
             runner = Runner(env=self.env, model=self, n_steps=self.n_steps, gamma=self.gamma, lam=self.lam)
             self.episode_reward = np.zeros((self.n_envs,))
 
@@ -506,6 +506,7 @@ class PPO2General(ActorCriticRLModel):
                 cliprange_now = self.cliprange(frac)
                 cliprange_vf_now = cliprange_vf(frac)
                 # true_reward is the reward without discount
+                # 获取强化学习各种参数
                 obs, returns, masks, actions, values, neglogpacs, states, ep_infos, true_reward = runner.run()
                 self.num_timesteps += self.n_batch
                 ep_info_buf.extend(ep_infos)

@@ -80,8 +80,10 @@ class GridworldContinuousEnv(gym.Env):
         car = self.world.dynamic_agents[0]
         if verbose: print("a: ", action)
         acc = self.accelerate.action(self._get_obs())
+        # 改变车辆加速度以及速度
         action = np.append(action, acc)
         car.set_control(*action)
+        # 改变车辆加速度以及速度
         self.world.tick()
 
         reward = self.reward(verbose)
