@@ -171,7 +171,7 @@ class RewardCurriculum(object):
                                    self.is_save, self.eval_save_period, self.rets_path, 0)
 
 
-def train(model, eval_env, timesteps, experiment_name, is_save, eval_save_period, rets_path, num_trains):
+def train(model, eval_env, timesteps, experiment_dir, is_save, eval_save_period, rets_path, num_trains):
     """
     Trains model for specified timesteps. Returns trained model.
     :param num_trains: number of previous lessons, for continual learning setting
@@ -189,7 +189,7 @@ def train(model, eval_env, timesteps, experiment_name, is_save, eval_save_period
                 # model.save(os.path.join(experiment_name, 'model_{}_{}.pkl'.format(total_steps, ret)))
                 if ret > best_ret:
                     print("Saving new best model")
-                    model.save(os.path.join(experiment_name, 'best_model_{}_{}.pkl'.format(total_steps, ret)))
+                    model.save(os.path.join(experiment_dir, 'best_model_{}_{}.pkl'.format(total_steps, ret)))
                     best_ret = ret
                 #wandb.log({"eval_ret": ret}, step=total_steps)
                 state_history = list(state_history)
@@ -203,7 +203,7 @@ def train(model, eval_env, timesteps, experiment_name, is_save, eval_save_period
 
     best_ret, n_callbacks = -np.infty, 0
     model.learn(total_timesteps=timesteps, callback=callback)
-    if is_save: model.save(os.path.join(experiment_name, 'final_model_{}.pkl'.format(num_trains)))
+    if is_save: model.save(os.path.join(experiment_dir, 'final_model_{}.pkl'.format(num_trains)))
     return model
 
 
