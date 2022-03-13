@@ -216,7 +216,7 @@ def train(model, eval_env, timesteps, experiment_name, is_save, eval_save_period
     """
     def callback(_locals, _globals):
         nonlocal n_callbacks, best_ret
-        model = _locals['self']
+        model = _locals['self'].model
         total_steps = model.num_timesteps + (timesteps)*num_trains
 
         # Saving best model
