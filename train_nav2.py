@@ -136,7 +136,7 @@ class RewardCurriculum(object):
                     eval_env.set_weight(r_weight)
                     self.create_eval_dir1(self.experiment_dir+'_step_{:02d}'.format(jj))
                     ret, _, _, _ = evaluate(self.model, eval_env, render=False)
-                    self.model.save(os.path.join(self.experiment_dir+'_step_{:02d}'.format(jj), 'model_{}_{}.pkl'.format(0, ret)))
+                    # self.model.save(os.path.join(self.experiment_dir+'_step_{:02d}'.format(jj), 'model_{}_{}.pkl'.format(0, ret)))
                     self.model = train(self.model, eval_env, self.timesteps, self.experiment_dir+'_step_{:02d}'.format(jj),
                                self.is_save, self.eval_save_period, self.rets_path, l)
                     best_model, iter_num = find_best(self.experiment_dir+'_step_{:02d}'.format(jj), env_name)
@@ -160,7 +160,7 @@ class RewardCurriculum(object):
                     eval_env.set_obs_size(obs_size[0], obs_size[1])
                     self.create_eval_dir1(self.experiment_dir+'_step_{:02d}'.format(jj))
                     ret, _, _, _ = evaluate(self.model, eval_env, render=False)
-                    self.model.save(os.path.join(self.experiment_dir+'_step_{:02d}'.format(jj), 'model_{}_{}.pkl'.format(0, ret)))
+                    # self.model.save(os.path.join(self.experiment_dir+'_step_{:02d}'.format(jj), 'model_{}_{}.pkl'.format(0, ret)))
                     self.model = train(self.model, eval_env, self.timesteps, self.experiment_dir+'_step_{:02d}'.format(jj),
                                self.is_save, self.eval_save_period, self.rets_path, l)
                     best_model, iter_num = find_best(self.experiment_dir+'_step_{:02d}'.format(jj), env_name)
@@ -224,7 +224,7 @@ def train(model, eval_env, timesteps, experiment_name, is_save, eval_save_period
             start_eval_time = time.time()
             if is_save:
                 ret, std, total_rets, state_history = evaluate(model, eval_env, render=False)
-                model.save(os.path.join(experiment_name, 'model_{}_{}.pkl'.format(total_steps, ret)))
+                # model.save(os.path.join(experiment_name, 'model_{}_{}.pkl'.format(total_steps, ret)))
                 if ret > best_ret:
                     print("Saving new best model")
                     model.save(os.path.join(experiment_name, 'best_model_{}_{}.pkl'.format(total_steps, ret)))
