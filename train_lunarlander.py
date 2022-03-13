@@ -129,7 +129,7 @@ class RewardCurriculum(object):
                     env = gym.make(lesson)
                     env.set_factor(r_weight)
                     env.set_obs('rec', [-0.05, 0.05, 1/6., 1/3.])
-                    env = DummyVecEnv([lambda: env])
+                    env = DummyVecEnv([lambda: env for i in range(self.num_envs)])
                     self.model.set_env(env)
                     eval_env = gym.make(lesson)
                     eval_env.set_factor(r_weight)
@@ -154,7 +154,7 @@ class RewardCurriculum(object):
 
                     env = gym.make(lesson)
                     env.set_obs('rec', [-obs_size, obs_size, 1/6., 1/3.])
-                    env = DummyVecEnv([lambda: env])
+                    env = DummyVecEnv([lambda: env for i in range(self.num_envs)])
                     self.model.set_env(env)
                     eval_env = gym.make(lesson)
                     eval_env.set_obs('rec', [-obs_size, obs_size, 1/6., 1/3.])
@@ -174,7 +174,7 @@ class RewardCurriculum(object):
                 print("\ntraining on ", lesson)
                 env = gym.make(lesson)
                 #env.set_obs('rec', [-0.05, 0.05, 1/6., 1/3.])
-                env = DummyVecEnv([lambda: env])
+                env = DummyVecEnv([lambda: env for i in range(self.num_envs)])
                 self.model.set_env(env)
                 eval_env = gym.make(lesson)
                 #eval_env.set_obs('rec', [-0.05, 0.05, 1/6., 1/3.])
@@ -190,6 +190,7 @@ class RewardCurriculum(object):
         #self.timesteps = 220000 # to train for longer
         self.model = None
         env = gym.make(env_name)
+        env = DummyVecEnv([lambda: env for i in range(self.num_envs)])
         eval_env = gym.make(env_name)
 
         env.set_obs('rec', [-0.05,0.05,1./6,1./3.])
@@ -222,7 +223,7 @@ def train(model, eval_env, timesteps, experiment_name, is_save, eval_save_period
     """
     def callback(_locals, _globals):
         nonlocal n_callbacks, best_ret
-        model = _locals['self']
+        model = _locals['self'].model
         total_steps = model.num_timesteps + (timesteps)*num_trains
         # Saving best model
         if (total_steps) % eval_save_period == 0:
