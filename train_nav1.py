@@ -86,6 +86,7 @@ class RewardCurriculum(object):
                 model_dir = os.path.join(model_info[0], model_info[1], model_info[2])
                 if self.model_type == "PPO":
                     self.model = PPO2.load(model_dir)  # loads pre-trained model
+                    self.model.n_cpu_tf_sess = 8
                 elif self.model_type == "HER":
                     self.model = HER.load(model_dir)   # loads pre-trained model
                 print(f"\ntraining on {lesson}, bs {self.bs}, seed{seed}")
@@ -193,11 +194,11 @@ def train(model, eval_env, timesteps, experiment_dir, is_save, eval_save_period,
                     model.save(os.path.join(experiment_dir, 'best_model_{}_{}.pkl'.format(total_steps, ret)))
                     best_ret = ret
                 #wandb.log({"eval_ret": ret}, step=total_steps)
-                state_history = list(state_history)
-                line = [total_steps] + state_history
-                with open(rets_path, "a", newline="") as f:
-                    writer = csv.writer(f)
-                    writer.writerow(line)
+                # state_history = list(state_history)
+                # line = [total_steps] + state_history
+                # with open(rets_path, "a", newline="") as f:
+                #     writer = csv.writer(f)
+                #     writer.writerow(line)
             else:
                 ret, std, total_rets, _ = evaluate(model, eval_env, render=False)
         return True

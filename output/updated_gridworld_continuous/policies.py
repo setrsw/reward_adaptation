@@ -65,6 +65,8 @@ B3R_B0L_B3L = ["output/updated_gridworld_continuous", "B3R_B0L_B3L", "best_model
 B3R_B0L_B3L1 = ["output/updated_gridworld_continuous2", "B3R_B0L_B3L1", "best_model_20224_61.23748884951906.pkl"]
 B3R_B0L_B3L2 = ["output/updated_gridworld_continuous2", "B3R_B0L_B3L2", "best_model_73728_62.41263549541671.pkl"]
 
+B3R_B0L_B3L3 = ["output/updated_gridworld_continuous_me", "3_ours_205", "best_model_22785_62.473028854117466.pkl"]
+
 B5R_B0L_B5L = ["output/updated_gridworld_continuous", "B5R_B0L_B5L", "best_model_48128_56.34691048530898.pkl"]
 B5R_B0L_B5L1 = ["output/updated_gridworld_continuous2", "B5R_B0L_B5L1", "best_model_1664_62.39221281298838.pkl"]
 B5R_B0L_B5L2 = ["output/updated_gridworld_continuous2", "B5R_B0L_B5L2", "best_model_46336_62.20556371186273.pkl"]
