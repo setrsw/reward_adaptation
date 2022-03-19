@@ -142,6 +142,7 @@ class RewardCurriculum(object):
                     best_model, iter_num = find_best(self.experiment_dir+'_step_{:02d}'.format(jj))
                     if self.model_type == "PPO":
                         self.model = PPO2.load(best_model)
+                        self.PPO.n_cpu_tf_sess = 16
                     elif self.model_type == "DQN":
                         self.model = DQN.load(best_model)
                     iter_nums += iter_num
@@ -166,6 +167,7 @@ class RewardCurriculum(object):
                     best_model, iter_num = find_best(self.experiment_dir+'_step_{:02d}'.format(jj))
                     if self.model_type == "PPO":
                         self.model = PPO2.load(best_model)
+                        self.model.n_cpu_tf_sess=16
                     elif self.model_type == "DQN":
                         self.model = DQN.load(best_model)
                     iter_nums += iter_num
@@ -203,6 +205,7 @@ class RewardCurriculum(object):
                                 )
             else:
                 self.PPO = PPO2('MlpPolicy', env, verbose=1, seed=self.seed, learning_rate=1e-3)
+            self.PPO.n_cpu_tf_sess=16
             self.model = train(self.PPO, eval_env, self.timesteps, self.experiment_dir,
                                self.is_save, self.eval_save_period, self.rets_path, 0)
         elif self.model_type == "DQN":
