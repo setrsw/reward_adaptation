@@ -49,13 +49,13 @@ def evaluate(model, eval_env, render=False):
             #state_history.append(obs[:2])
             if render: time.sleep(.1)
             ever_done = done
-            if nsteps > 3000:
-                print(nsteps)
-            if nsteps > 5000:
-                break
+        #     if nsteps > 3000:
+        #         print(nsteps)
+        #     if nsteps > 5000:
+        #         break
         total_rets.append(rets)
-        print("total mean ep return: ", np.mean(total_rets), total_rets)
-        print("nsteps: ", nsteps)
+        # print("total mean ep return: ", np.mean(total_rets), total_rets)
+        # print("nsteps: ", nsteps)
     return np.mean(total_rets), np.std(total_rets), total_rets, np.array(state_history)
 
 def find_best(dir_name):
