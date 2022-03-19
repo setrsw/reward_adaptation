@@ -100,6 +100,7 @@ class RewardCurriculum(object):
 
                 env._set_barrier_size(self.bs)
                 env._set_homotopy_class('left')
+                # env = DummyVecEnv([lambda: env for i in range(self.num_envs)])
                 eval_env._set_barrier_size(self.bs)
                 eval_env._set_homotopy_class('left')
 
@@ -109,7 +110,7 @@ class RewardCurriculum(object):
                     print("bs: ", env.env.barrier_size)
                     print("hc: ", env.env.homotopy_class)
                 else:
-                    env = DummyVecEnv([lambda: env])
+                    env = DummyVecEnv([lambda: env for i in range(self.num_envs)])
                 self.model.set_env(env)
                 self.model.set_random_seed(self.seed)
                 ### ENTROPY###
@@ -133,6 +134,7 @@ class RewardCurriculum(object):
             eval_env = gym.make(env_name)
             env._set_barrier_size(self.bs)
             env._set_homotopy_class('right')
+            env = DummyVecEnv([lambda: env for i in range(self.num_envs)])
             eval_env._set_barrier_size(self.bs)
             eval_env._set_homotopy_class('right')
             if self.model_type == "PPO":
@@ -149,6 +151,7 @@ class RewardCurriculum(object):
                     self.PPO = PPO2('MlpPolicy', env, verbose=1, seed=self.seed, learning_rate=1e-3)
                 else:
                     self.PPO = PPO2('MlpPolicy', env, verbose=1, seed=self.seed, learning_rate=1e-3)
+                self.PPO.n_cpu_tf_sess=8
 
                 self.model = train(self.PPO, eval_env, self.timesteps, self.experiment_dir,
                                    self.is_save, self.eval_save_period, self.rets_path, 0)
